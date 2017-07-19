@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Welcome to the cryptogram game! </title>
+
+    <!-- Bootstrap -->
+    <link href={{url_for('static',filename='css/bootstrap.min.css')}} rel="stylesheet">
+
+</head>
+
+<body>
+<div class="jumbotron text-center">
+    <h1> Welcome to the cryptogram game!</h1>
+            <div class="container">
+
+        <form action = "/" method = "get">
+            <button name="newGame" value="newGame" class="btn btn-secondary" style="float: center"> new Game </button>
+        </form>
+        </div>
+</div>
+
+<div class="container" class="col-sm-8">
+
+    {% if result %}
+        <div class="alert alert-info alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+             Your answer: {{result}}<br>
+             {{scoreText}}
+        </div>
+    {% endif %}
+
+    <div class="well">
+    {% if encrypted %}
+        <h4>{{ encrypted }}</h4>
+        <p align="right">by {{ author }}</p>
+    {% endif %}
+    </div>
+
+    <div class="container">
+        <form method = "post">
+        {% if userKeys %}
+            <ul class="list-group">
+
+            {% for key in userKeys %}
+                <div class="col-sm-2">
+                {{key}} =
+                <input type = "text" name = "{{key}}" value="{{ request.form[key]}}" maxlength="1" size = "1">
+                </div>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <button name="submit" value="sumbit" class="btn btn-primary" style="float: right"> Submit </button>
+        </form>
+
+    </div>
+
+</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src={{url_for('static',filename='js/bootstrap.min.js')}}></script>
+</body>
+</html>
